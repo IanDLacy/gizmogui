@@ -1,18 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div ref="buttonbar">
+      <Button></Button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Vue from 'vue'
+import Button from './components/Button.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Button
+  },
+  mounted() {
+    // axios.get('/model')
+    // .then(async (response) => {
+    //   let model = await response.json();
+    //   console.log(model);
+      var model = {
+        sub1:{
+          prop1: "value",
+          proplist: [
+            {
+              prop1: "value",
+              prop2: "value"
+            }
+          ]
+        },
+        sub2:{
+          prop1: "value",
+          proplist: [
+            {
+              prop1: "value",
+              prop2: "value"
+            }
+          ]
+        }
+      };
+      console.log(this.$refs.buttonbar);
+      Object.keys(model).forEach(value =>{
+        var ButtonClass = Vue.extend(Button);
+        var instance = new ButtonClass({
+          propsData: {path: value}
+        });
+        instance.$slots.default = [value];
+        instance.$mount();
+        //this.$refs.buttonbar.appendChild(instance);
+      })
+    }//)
+  //}
 }
 </script>
 
