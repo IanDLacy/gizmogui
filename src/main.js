@@ -4,7 +4,6 @@ import Node from './components/node.vue'
 Vue.config.productionTip = false
 
 let data = {
-  controller: "MockUSB",
   relayController:{
     relays: [
       {enabled: true},
@@ -34,32 +33,41 @@ let data = {
 
 function makenode(key, val, path){
     let obj = new Object();
-            obj.path = path + '/' + key;
-            obj.label = key;
-            obj.nodes = parsetree(val, obj.path);
-            return obj
+    obj.path = path + '/' + key;
+    obj.label = key;
+    obj.nodes = parsetree(val, obj.path);
+    return obj
 }
 
 function parsetree(item, path) {
+    console.log(path);
+    console.log(item);
+    
     if (typeof item === "object" && item !== null){
-        let nodes = [];
-        for (let [key, val] of Object.entries(item)){
-            nodes.push(makenode(key, val, path));
+        if (!item.type){
+            let nodes = [];
+            for (let [key, val] of Object.entries(item)){
+                nodes.push(makenode(key, val, path));
+            }
+            return nodes
         }
-        return nodes
     }
     else if (Array.isArray(item)) {
-        return item.map((value, index) => makenode(String(index), value))
+        return item.map((value, index) => makenode(String(index), value, path))
     }
-    else {
-        return item;
+    else{
+        let obj = new Object();
+        obj.label = '';
+        obj.path = path;
+        obj.value = item;
+        obj.type = String(typeof item);
+        return obj;
     }
 }
 
 let tree = new Object()
 tree.label = data.controller
-tree.path = '/' + data.controller
-tree.nodes = parsetree(data);
+tree.nodes = parsetree(data, '');
 
 console.log(tree);
 
