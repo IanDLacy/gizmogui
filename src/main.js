@@ -3,6 +3,7 @@ import Node from './components/node.vue'
 
 Vue.config.productionTip = false
 
+/* This is temporary data, in reality this will be fetched */
 let data = {
   relayController:{
     relays: [
