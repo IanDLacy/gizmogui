@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-if="isleaf" id="leaf">
+    <div v-if="isleaf" class="leaf">
         {{ label }}: {{ value }}
     </div>
     <div v-else class="node">
@@ -43,7 +43,7 @@ export default {
         color:#adadad;		/* I'm not sure what "rgb(241, 237, 231)" is, but I'm not using it ( too much contrast ) . */
         font-weight: bold;
     }
-    #leaf{
+    .leaf{
         padding: 1em;
         text-align:center;
         letter-spacing:1px;
