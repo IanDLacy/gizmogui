@@ -42,13 +42,11 @@ function makenode(key, val, path){
 
 function parsetree(item, path) {
     if (typeof item === "object" && item !== null){
-        if (!item.type){
-            let nodes = [];
-            for (let [key, val] of Object.entries(item)){
-                nodes.push(makenode(key, val, path));
-            }
-            return nodes
+        let nodes = [];
+        for (let [key, val] of Object.entries(item)){
+            nodes.push(makenode(key, val, path));
         }
+        return nodes
     }
     else if (Array.isArray(item)) {
         return item.map((value, index) => makenode(String(index), value, path))
