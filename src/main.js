@@ -40,9 +40,6 @@ function makenode(key, val, path){
 }
 
 function parsetree(item, path) {
-    console.log(path);
-    console.log(item);
-    
     if (typeof item === "object" && item !== null){
         if (!item.type){
             let nodes = [];
@@ -68,8 +65,6 @@ function parsetree(item, path) {
 let tree = new Object()
 tree.label = data.controller
 tree.nodes = parsetree(data, '');
-
-console.log(tree);
 
 new Vue({
   el: '#app',
